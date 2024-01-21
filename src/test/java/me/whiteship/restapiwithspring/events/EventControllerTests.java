@@ -192,7 +192,7 @@ public class EventControllerTests {
                 .endEventDateTime(LocalDateTime.of(2018, 11, 23, 14, 21))
                 .basePrice(100000)
                 .maxPrice(200)
-                .limitOfEnrollment(100)
+//                .limitOfEnrollment(100)
                 .location("강남역 D2 스타텁 팩토리")
                 .build();
 
@@ -201,9 +201,9 @@ public class EventControllerTests {
                         .content(this.objectMapper.writeValueAsString(eventDto)))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("content[0].objectName").exists())
-                .andExpect(jsonPath("content[0].defaultMessage").exists())
-                .andExpect(jsonPath("content[0].code").exists())
+                .andExpect(jsonPath("errors[0].objectName").exists())
+                .andExpect(jsonPath("errors[0].defaultMessage").exists())
+                .andExpect(jsonPath("errors[0].code").exists())
                 .andExpect(jsonPath("_links.index").exists());
     }
 }
