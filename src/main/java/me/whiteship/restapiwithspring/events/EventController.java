@@ -36,6 +36,7 @@ public class EventController {
             return ResponseEntity.badRequest().body(errors);
         }
         Event event = modelMapper.map(eventDto, Event.class);
+        event.update();
         //error 발생으로 인한 이슈 version 문제로 보임
         Event newEvent = this.eventRepository.save(event);
         URI createUri = linkTo(EventController.class).slash(newEvent.getId()).toUri();

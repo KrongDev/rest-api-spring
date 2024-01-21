@@ -2,6 +2,7 @@ package me.whiteship.restapiwithspring.events;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.apache.logging.log4j.util.Strings;
 
 import java.time.LocalDateTime;
 
@@ -25,4 +26,9 @@ public class Event {
     private boolean free;
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus = EventStatus.DRAFT;
+
+    public void update() {
+        this.free = this.basePrice == 0 && this.maxPrice == 0;
+        this.offline = !(Strings.isEmpty(this.location) && Strings.isBlank(this.location));
+    }
 }
